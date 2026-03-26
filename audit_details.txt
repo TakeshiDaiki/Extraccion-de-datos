@@ -1,0 +1,209 @@
+[2026-02-13 20:25:22] SYSTEM | INITIALIZED | Logging system is ready for production.
+[2026-02-13 20:25:24] API_CLIENT | RUNNING | Connecting...
+[2026-02-13 20:25:24] API_CLIENT | ERROR | HTTPSConnectionPool(host='api.coindesk.com', port=443): Max retries exceeded with url: /v1/bpi/currentprice.json (Caused by NameResolutionError("HTTPSConnection(host='api.coindesk.com', port=443): Failed to resolve 'api.coindesk.com' ([Errno 11001] getaddrinfo failed)"))
+[2026-02-13 20:25:30] EXCEL_EXTRACTOR | STARTING | Scanning for spreadsheet files.
+[2026-02-13 20:25:32] PDF_READER | STARTING | Processing PDF files with pdfplumber.
+[2026-02-13 20:25:32] PDF_READER | IDLE | No PDF files found.
+[2026-02-24 23:15:14] WEB_SCRAPER | START | Execution started
+[2026-02-24 23:15:14] WEB_SCRAPER | SUCCESS | Completed in 0.06s | Result=475
+[2026-02-24 23:15:14] API_CLIENT | START | Execution started
+[2026-02-24 23:15:14] API_CLIENT | SUCCESS | Completed in 0.01s | Result=0
+[2026-02-24 23:15:14] LOGIN_SCRAPER | START | Execution started
+[2026-02-24 23:15:14] LOGIN_SCRAPER | SUCCESS | Completed in 0.01s | Result=0
+[2026-02-24 23:15:14] EMAIL_EXTRACTOR | START | Execution started
+[2026-02-24 23:15:14] EMAIL_EXTRACTOR | SUCCESS | Completed in 0.01s | Result=0
+[2026-02-24 23:15:14] EXCEL_EXTRACTOR | START | Execution started
+[2026-02-24 23:15:14] EXCEL_EXTRACTOR | ERROR | (sqlite3.OperationalError) near ")": syntax error
+[SQL: 
+CREATE TABLE raw_excel_data (
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-02-24 23:45:07] WEB_SCRAPER | START | Execution started
+[2026-02-24 23:45:07] WEB_SCRAPER | ERROR | run_web_scraper() got an unexpected keyword argument 'filters'
+[2026-02-24 23:52:18] WEB_SCRAPER | START | Execution started
+[2026-02-24 23:52:18] WEB_SCRAPER | SUCCESS | Completed in 0.13s | Result=            title category               source  value
+0      Web Item 0      Web  https://example.com    0.0
+1      Web Item 1      Web  https://example.com    1.0
+2      Web Item 2      Web  https://example.com    2.0
+3      Web Item 3      Web  https://example.com    3.0
+4      Web Item 4      Web  https://example.com    4.0
+..            ...      ...                  ...    ...
+495  Web Item 495      Web  https://example.com    5.0
+496  Web Item 496      Web  https://example.com    6.0
+497  Web Item 497      Web  https://example.com    7.0
+498  Web Item 498      Web  https://example.com    8.0
+499  Web Item 499      Web  https://example.com    9.0
+
+[500 rows x 4 columns]
+[2026-02-24 23:52:18] API_CLIENT | START | Execution started
+[2026-02-24 23:52:18] API_CLIENT | ERROR | fetch_external_api() got an unexpected keyword argument 'api_endpoint'
+[2026-02-24 23:56:38] WEB_SCRAPER | START | Execution started
+[2026-02-24 23:56:38] WEB_SCRAPER | SUCCESS | Completed in 0.09s | Result=            title category               source  value
+0      Web Item 0      Web  https://example.com    0.0
+1      Web Item 1      Web  https://example.com    1.0
+2      Web Item 2      Web  https://example.com    2.0
+3      Web Item 3      Web  https://example.com    3.0
+4      Web Item 4      Web  https://example.com    4.0
+..            ...      ...                  ...    ...
+495  Web Item 495      Web  https://example.com    5.0
+496  Web Item 496      Web  https://example.com    6.0
+497  Web Item 497      Web  https://example.com    7.0
+498  Web Item 498      Web  https://example.com    8.0
+499  Web Item 499      Web  https://example.com    9.0
+
+[500 rows x 4 columns]
+[2026-02-24 23:56:38] API_CLIENT | START | Execution started
+[2026-02-24 23:56:38] API_CLIENT | SUCCESS | Completed in 0.05s | Result=      id          name                   source   value
+1      1    API Item 1  https://api.example.com    10.0
+2      2    API Item 2  https://api.example.com    20.0
+3      3    API Item 3  https://api.example.com    30.0
+4      4    API Item 4  https://api.example.com    40.0
+5      5    API Item 5  https://api.example.com    50.0
+..   ...           ...                      ...     ...
+495  495  API Item 495  https://api.example.com  4950.0
+496  496  API Item 496  https://api.example.com  4960.0
+497  497  API Item 497  https://api.example.com  4970.0
+498  498  API Item 498  https://api.example.com  4980.0
+499  499  API Item 499  https://api.example.com  4990.0
+
+[499 rows x 4 columns]
+[2026-02-24 23:56:38] LOGIN_SCRAPER | START | Execution started
+[2026-02-24 23:56:38] LOGIN_SCRAPER | SUCCESS | Completed in 0.05s | Result=         entity_name category                      source  value
+0      Secure Data 0    Login  https://secure.example.com   50.0
+1      Secure Data 1    Login  https://secure.example.com   50.0
+2      Secure Data 2    Login  https://secure.example.com   50.0
+3      Secure Data 3    Login  https://secure.example.com   50.0
+4      Secure Data 4    Login  https://secure.example.com   50.0
+..               ...      ...                         ...    ...
+495  Secure Data 495    Login  https://secure.example.com   50.0
+496  Secure Data 496    Login  https://secure.example.com   50.0
+497  Secure Data 497    Login  https://secure.example.com   50.0
+498  Secure Data 498    Login  https://secure.example.com   50.0
+499  Secure Data 499    Login  https://secure.example.com   50.0
+
+[500 rows x 4 columns]
+[2026-02-24 23:56:38] EMAIL_EXTRACTOR | START | Execution started
+[2026-02-24 23:56:38] EMAIL_EXTRACTOR | SUCCESS | Completed in 0.05s | Result=         entity_name category  value
+0    Email Subject 0    Email    1.0
+1    Email Subject 1    Email    1.0
+2    Email Subject 2    Email    1.0
+3    Email Subject 3    Email    1.0
+4    Email Subject 4    Email    1.0
+..               ...      ...    ...
+495  Email Subject 5    Email    1.0
+496  Email Subject 6    Email    1.0
+497  Email Subject 7    Email    1.0
+498  Email Subject 8    Email    1.0
+499  Email Subject 9    Email    1.0
+
+[500 rows x 3 columns]
+[2026-02-24 23:56:38] EXCEL_EXTRACTOR | START | Execution started
+[2026-02-24 23:56:38] EXCEL_EXTRACTOR | SUCCESS | Completed in 0.00s | Result=None
+[2026-02-24 23:56:38] PDF_READER | START | Execution started
+[2026-02-24 23:56:38] PDF_READER | SUCCESS | Completed in 0.00s | Result=None
+[2026-03-08 22:17:14] WEB_SCRAPER | START | Execution started
+[2026-03-08 22:17:14] WEB_SCRAPER | SUCCESS | Completed in 0.30s | Result=            title category source  value
+0      Web Item 0      Web           0.0
+1      Web Item 1      Web           1.0
+2      Web Item 2      Web           2.0
+3      Web Item 3      Web           3.0
+4      Web Item 4      Web           4.0
+..            ...      ...    ...    ...
+495  Web Item 495      Web           5.0
+496  Web Item 496      Web           6.0
+497  Web Item 497      Web           7.0
+498  Web Item 498      Web           8.0
+499  Web Item 499      Web           9.0
+
+[500 rows x 4 columns]
+[2026-03-08 22:17:14] API_CLIENT | START | Execution started
+[2026-03-08 22:17:14] API_CLIENT | SUCCESS | Completed in 0.04s | Result=      id          name source   value
+1      1    API Item 1           10.0
+2      2    API Item 2           20.0
+3      3    API Item 3           30.0
+4      4    API Item 4           40.0
+5      5    API Item 5           50.0
+..   ...           ...    ...     ...
+495  495  API Item 495         4950.0
+496  496  API Item 496         4960.0
+497  497  API Item 497         4970.0
+498  498  API Item 498         4980.0
+499  499  API Item 499         4990.0
+
+[499 rows x 4 columns]
+[2026-03-08 22:17:14] EMAIL_EXTRACTOR | START | Execution started
+[2026-03-08 22:17:14] EMAIL_EXTRACTOR | ERROR | run_email_extractor() got an unexpected keyword argument 'user'
+[2026-03-08 22:17:14] EXCEL_EXTRACTOR | START | Execution started
+[2026-03-08 22:17:14] EXCEL_EXTRACTOR | SUCCESS | Completed in 0.00s | Result=None
+[2026-03-08 22:17:14] PDF_READER | START | Execution started
+[2026-03-08 22:17:14] PDF_READER | SUCCESS | Completed in 0.00s | Result=None
+[2026-03-08 22:17:14] LOGIN_SCRAPER | START | Execution started
+[2026-03-08 22:17:14] LOGIN_SCRAPER | SUCCESS | Completed in 0.04s | Result=         entity_name category source  value
+0      Secure Data 0    Login          50.0
+1      Secure Data 1    Login          50.0
+2      Secure Data 2    Login          50.0
+3      Secure Data 3    Login          50.0
+4      Secure Data 4    Login          50.0
+..               ...      ...    ...    ...
+495  Secure Data 495    Login          50.0
+496  Secure Data 496    Login          50.0
+497  Secure Data 497    Login          50.0
+498  Secure Data 498    Login          50.0
+499  Secure Data 499    Login          50.0
+
+[500 rows x 4 columns]
+[2026-03-13 22:40:57] WEB_SCRAPER | START | Execution started
+[2026-03-13 22:40:58] WEB_SCRAPER | SUCCESS | Completed in 0.32s | Result=            title category source  value
+0      Web Item 0      Web           0.0
+1      Web Item 1      Web           1.0
+2      Web Item 2      Web           2.0
+3      Web Item 3      Web           3.0
+4      Web Item 4      Web           4.0
+..            ...      ...    ...    ...
+495  Web Item 495      Web           5.0
+496  Web Item 496      Web           6.0
+497  Web Item 497      Web           7.0
+498  Web Item 498      Web           8.0
+499  Web Item 499      Web           9.0
+
+[500 rows x 4 columns]
+[2026-03-13 22:40:58] API_CLIENT | START | Execution started
+[2026-03-13 22:40:58] API_CLIENT | SUCCESS | Completed in 0.04s | Result=      id          name source   value
+1      1    API Item 1           10.0
+2      2    API Item 2           20.0
+3      3    API Item 3           30.0
+4      4    API Item 4           40.0
+5      5    API Item 5           50.0
+..   ...           ...    ...     ...
+495  495  API Item 495         4950.0
+496  496  API Item 496         4960.0
+497  497  API Item 497         4970.0
+498  498  API Item 498         4980.0
+499  499  API Item 499         4990.0
+
+[499 rows x 4 columns]
+[2026-03-13 22:40:58] EMAIL_EXTRACTOR | START | Execution started
+[2026-03-13 22:40:58] EMAIL_EXTRACTOR | ERROR | run_email_extractor() got an unexpected keyword argument 'user'
+[2026-03-13 22:40:58] EXCEL_EXTRACTOR | START | Execution started
+[2026-03-13 22:40:58] EXCEL_EXTRACTOR | SUCCESS | Completed in 0.00s | Result=None
+[2026-03-13 22:40:58] PDF_READER | START | Execution started
+[2026-03-13 22:40:58] PDF_READER | SUCCESS | Completed in 0.00s | Result=None
+[2026-03-13 22:40:58] LOGIN_SCRAPER | START | Execution started
+[2026-03-13 22:40:58] LOGIN_SCRAPER | SUCCESS | Completed in 0.04s | Result=         entity_name category source  value
+0      Secure Data 0    Login          50.0
+1      Secure Data 1    Login          50.0
+2      Secure Data 2    Login          50.0
+3      Secure Data 3    Login          50.0
+4      Secure Data 4    Login          50.0
+..               ...      ...    ...    ...
+495  Secure Data 495    Login          50.0
+496  Secure Data 496    Login          50.0
+497  Secure Data 497    Login          50.0
+498  Secure Data 498    Login          50.0
+499  Secure Data 499    Login          50.0
+
+[500 rows x 4 columns]
+[2026-03-13 22:49:17] WEB_SCRAPER | START | Execution started
+[2026-03-13 22:49:17] WEB_SCRAPER | ERROR | run_web_scraper() got an unexpected keyword argument 'filter_cat'

@@ -1,0 +1,31 @@
+# --- DASHBOARD & UI ---
+streamlit>=1.35.0
+plotly
+
+# --- API & SERVER ---
+fastapi
+uvicorn>=0.30.0
+pydantic>=2.0.0
+python-multipart
+
+# --- DATA PROCESSING ---
+# Pandas 2.x es el estándar de estabilidad para 2026
+pandas>=2.1.0,<3.0.0
+numpy
+sqlalchemy>=2.0.0
+openpyxl
+
+# --- EXTRACTION & SCRAPING ---
+requests
+beautifulsoup4
+pdfplumber
+pypdf>=4.0.0
+playwright
+pyotp
+
+# --- PDF GENERATION & TOOLS ---
+# Eliminamos fpdf antiguo para evitar conflictos con fpdf2
+fpdf2>=2.8.5
+
+# --- AUTOMATION ---
+apscheduler
