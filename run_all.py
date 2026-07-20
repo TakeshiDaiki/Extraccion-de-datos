@@ -1,6 +1,11 @@
 import subprocess
 import sys
 import os
+
+# Evita UnicodeEncodeError con emojis en consolas Windows que no usan UTF-8 por defecto
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
+
 from core.pipeline import run_pipeline
 
 

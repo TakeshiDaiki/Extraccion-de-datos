@@ -6,8 +6,13 @@
 __pycache__/
 *.py[cod]
 venv/
+.venv/
 .env
 
 # Logs y Temporales
-scripts_used/audit_details.txt
+scripts_used/
 data/
+data_input/
+data_processed/
+exports/
+config/pipeline_rules.json

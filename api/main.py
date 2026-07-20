@@ -1,45 +1,29 @@
-import os
-import pandas as pd
-from datetime import datetime
-from sqlalchemy import create_engine
+from fastapi import FastAPI, HTTPException
 
-from core.script_logger import audit_execution
+from core.pipeline import run_pipeline
 
-# ==========================================================
-# SETTINGS
-# ==========================================================
+app = FastAPI(title="BI Platform ETL API")
 
-SCRIPT_ROOT = os.path.dirname(os.path.abspath(__file__))
-DATABASE_TARGET = os.path.join(SCRIPT_ROOT, "dashboards", "etl_pro.db")
+ALL_SOURCES = ["web", "api", "email", "excel", "pdf", "login"]
 
 
-@audit_execution("main_etl")
-def run_data_injection():
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
+@app.post("/run-etl")
+def run_etl():
     """
-    Main ETL injection logic.
-    Generates operational data and persists it into SQLite.
+    Dispara el pipeline ETL completo (los 6 motores de extracción).
+    Este es el endpoint que jobs/scheduler.py invoca cada 12 horas.
     """
-
-    print(f"[{datetime.now()}] Initializing Production Data Injection")
-
-    os.makedirs(os.path.dirname(DATABASE_TARGET), exist_ok=True)
-
-    data_payload = pd.DataFrame({
-        "date": pd.date_range(start="2026-02-16", periods=100),
-        "value": [v * 75.5 for v in range(100)],
-        "status": ["OPERATIONAL_LIVE"] * 100
-    })
-
-    engine = create_engine(f"sqlite:///{DATABASE_TARGET}")
-    data_payload.to_sql(
-        "processed_data",
-        engine,
-        if_exists="append",
-        index=False
-    )
-
-    print("✅ Injection completed successfully")
+    try:
+        return run_pipeline(sources=ALL_SOURCES, limit=100)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 if __name__ == "__main__":
-    run_data_injection()
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -37,7 +37,7 @@ class DataCleaner:
                 df[column] = series.str.title()
             elif mode == "STRIP_ACCENTS":
                 # Normalización Unicode para eliminar tildes y caracteres especiales
-                df[column] = series.str.normalize('NFKD').encode('ascii', 'ignore').decode('utf-8')
+                df[column] = series.str.normalize('NFKD').str.encode('ascii', 'ignore').str.decode('utf-8')
         return df
 
     @staticmethod

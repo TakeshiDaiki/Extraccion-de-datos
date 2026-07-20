@@ -38,3 +38,30 @@ class PipelineManager:
             with open(cls.RULES_PATH, "r") as f:
                 return json.load(f)
         return {}
+
+    @classmethod
+    def _save_rules(cls, rules: dict):
+        os.makedirs(os.path.dirname(cls.RULES_PATH), exist_ok=True)
+        with open(cls.RULES_PATH, "w") as f:
+            json.dump(rules, f, indent=2)
+
+    @classmethod
+    def get_rules(cls, table_name: str) -> list:
+        """Devuelve las reglas guardadas para una tabla (usado por el Dashboard)."""
+        return cls._load_rules().get(table_name, [])
+
+    @classmethod
+    def save_rule(cls, table_name: str, action: str, params: dict):
+        """Guarda una nueva regla de automatización para una tabla."""
+        rules = cls._load_rules()
+        rules.setdefault(table_name, []).append({"action": action, "params": params})
+        cls._save_rules(rules)
+
+    @classmethod
+    def delete_rule(cls, table_name: str, index: int):
+        """Elimina una regla guardada por posición."""
+        rules = cls._load_rules()
+        table_rules = rules.get(table_name, [])
+        if 0 <= index < len(table_rules):
+            table_rules.pop(index)
+            cls._save_rules(rules)

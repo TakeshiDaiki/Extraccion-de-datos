@@ -1,5 +1,12 @@
+import sys
 import logging
 import pandas as pd
+
+# Evita UnicodeEncodeError con emojis cuando el proceso que importa este
+# módulo (API, dashboard, scheduler, run_all.py) corre en una consola
+# Windows que no usa UTF-8 por defecto.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 from extract.web_scraper import run_web_scraper
 from extract.api_client import fetch_external_api
 from extract.login_scraper import run_login_scraper
@@ -37,10 +44,7 @@ def run_pipeline(
         "web": (run_web_scraper, {"base_url": active_config.get("SCRAPER_URL")}),
         "api": (fetch_external_api, {"api_endpoint": active_config.get("API_BASE_URL")}),
         "login": (run_login_scraper, {"url": active_config.get("LOGIN_URL")}),
-        "email": (run_email_extractor, {
-            "user": active_config.get("EMAIL_USER"),
-            "password": active_config.get("EMAIL_PASS")
-        }),
+        "email": (run_email_extractor, {}),
         "excel": (run_excel_extraction, {}),
         "pdf": (run_pdf_extraction, {})
     }

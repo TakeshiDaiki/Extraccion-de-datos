@@ -6,6 +6,7 @@ from extract.email_extractor import run_email_extractor
 from extract.pdf_reader import run_pdf_extraction
 from extract.excel_extractor import run_excel_extraction
 from core.pipeline import run_pipeline
+from config import CONFIG
 
 
 def route_command(option_num, limit, url=None):
@@ -23,7 +24,8 @@ def route_command(option_num, limit, url=None):
 
     # 3. API Extraction
     elif option_num == "3":
-        return fetch_external_api(limit=limit)
+        api_endpoint = url or CONFIG.get("API_BASE_URL", "")
+        return fetch_external_api(api_endpoint=api_endpoint, limit=limit)
 
     # 4. Email Extraction
     elif option_num == "4":
