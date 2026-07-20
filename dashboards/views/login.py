@@ -15,6 +15,8 @@ with st.form("login_form"):
     email = st.text_input("Email")
     password = st.text_input("Password", type="password")
 
+    st.page_link("views/forgot_password.py", label="Forgot your password?", icon="🔓")
+
     if st.form_submit_button("Log In", use_container_width=True, type="primary"):
         ok, message = authenticate(email, password)
         if ok:
@@ -23,8 +25,6 @@ with st.form("login_form"):
             st.page_link("views/dashboard.py", label="Go to Dashboard →", icon="📊")
         else:
             st.error(message)
-
-st.page_link("views/forgot_password.py", label="Forgot your password?", icon="🔓")
 
 st.markdown("---")
 st.caption("Don't have an account yet?")

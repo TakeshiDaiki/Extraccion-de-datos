@@ -81,8 +81,13 @@ def inject_base_style():
         [data-testid="stTopNavLink"] {{
             border-radius: 999px !important;
             padding: 6px 16px !important;
-            font-weight: 600 !important;
+            font-weight: 700 !important;
             color: {INK} !important;
+        }}
+        /* "Forgot Password" is reachable from the Log In page — kept out of
+           the top nav so it doesn't compete with the primary destinations. */
+        [data-testid="stTopNavLinkContainer"]:has([href*="forgot-password"]) {{
+            display: none !important;
         }}
         [data-testid="stTopNavLink"][aria-current="page"] {{
             background: {FOREST} !important;

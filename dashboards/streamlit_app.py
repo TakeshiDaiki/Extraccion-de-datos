@@ -13,12 +13,15 @@ if REPO_ROOT not in sys.path:
 st.set_page_config(page_title="Master Data Explorer Pro", layout="wide", page_icon="🤖")
 
 pages = [
-    st.Page("views/landing.py", title="Home", icon="🏠", default=True),
-    st.Page("views/login.py", title="Log In", icon="🔑"),
-    st.Page("views/register.py", title="Sign Up", icon="📝"),
-    st.Page("views/forgot_password.py", title="Forgot Password", icon="🔓", url_path="forgot-password"),
-    st.Page("views/dashboard.py", title="Dashboard", icon="📊"),
-    st.Page("views/plans.py", title="Plans", icon="⭐", url_path="plans"),
+    st.Page("views/landing.py", title="Home", default=True),
+    st.Page("views/login.py", title="Log In"),
+    st.Page("views/register.py", title="Sign Up"),
+    # Reachable at /forgot-password and linked from the Log In page, but
+    # intentionally hidden from the top nav (see _style.py) — it's not a
+    # primary destination like the others.
+    st.Page("views/forgot_password.py", title="Forgot Password", url_path="forgot-password"),
+    st.Page("views/dashboard.py", title="Dashboard"),
+    st.Page("views/plans.py", title="Plans", url_path="plans"),
 ]
 
 st.navigation(pages, position="top").run()
