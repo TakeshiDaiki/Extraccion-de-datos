@@ -1,14 +1,21 @@
 import streamlit as st
 
 from auth.service import PLAN_LIMITS
-from views._style import render_header, BRAND_NAME
+from views._style import render_hero, BRAND_NAME
 
-render_header(
+render_hero(
     BRAND_NAME,
     "A business intelligence platform built for data people — pull data from 6 different "
     "sources, clean and transform it with a professional toolkit, and explore it all from "
     "one interactive dashboard, backed by an AI-assisted extraction workflow.",
-    icon="📑",
+)
+
+st.markdown(
+    '<span class="pill-tag">🧩 6 extraction engines</span>'
+    '<span class="pill-tag">🧹 Cleaning toolkit</span>'
+    '<span class="pill-tag">🔁 Automation rules</span>'
+    '<span class="pill-tag">📤 CSV & Excel export</span>',
+    unsafe_allow_html=True,
 )
 
 if "user_email" in st.session_state:
@@ -149,7 +156,6 @@ with col_premium:
         st.write("✅ Excel export")
 
 st.caption(
-    "💡 This is a demo: plans are a fully working mock — no payment processor is connected "
-    "yet, so no real charges occur. See the Plans page for details on how billing would work "
-    "once it goes live."
+    "💡 Premium billing runs through real PayPal Subscriptions (currently in sandbox mode "
+    "for testing — no real charges yet). See the Plans page for details."
 )

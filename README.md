@@ -2,7 +2,7 @@
 
 Plataforma BI (Business Intelligence) con asistente de IA, pensada para gente que se dedica al análisis de datos: extrae información desde 6 fuentes distintas, la limpia/transforma con un conjunto de herramientas profesionales, y la explora desde un dashboard interactivo.
 
-Incluye registro/login de usuarios y un sistema de planes **Free / Premium** con cobro real vía **PayPal Subscriptions** (hoy en modo sandbox — ver [`HANDOFF.md`](HANDOFF.md) para pasar a cobro real y para el estado completo del proyecto de cara a un traspaso/venta).
+Incluye registro/login de usuarios y un sistema de planes **Free / Premium** con cobro real vía **PayPal Subscriptions** (hoy en modo sandbox).
 
 ## Características
 
@@ -11,7 +11,7 @@ Incluye registro/login de usuarios y un sistema de planes **Free / Premium** con
 - **Reglas de automatización**: guardá reglas de limpieza que se aplican solas en cada extracción futura, sin repetir el trabajo manual (plan Premium).
 - **Exportación** a CSV y Excel.
 - **API REST** (FastAPI) con un endpoint `POST /run-etl` para disparar el pipeline completo, pensado para integrarse con el scheduler automático (corre cada 12h).
-- **Cuentas de usuario**: registro y login con contraseñas hasheadas (bcrypt), y recuperación de contraseña por email vía SendGrid (código de un solo uso, expira en 15 min — requiere credenciales propias, ver [`HANDOFF.md`](HANDOFF.md)).
+- **Cuentas de usuario**: registro y login con contraseñas hasheadas (bcrypt), y recuperación de contraseña vía llave semilla generada al registrarse (sin depender de ningún servicio de email).
 - **Planes**:
 
   | | Free | Premium |
@@ -22,7 +22,7 @@ Incluye registro/login de usuarios y un sistema de planes **Free / Premium** con
   | Reglas de automatización | ❌ | ✅ |
   | Exportación a Excel | ✅ | ✅ |
 
-  > 💡 El botón "Actualizar a Premium" dispara un checkout real de PayPal Subscriptions cuando está configurado (`billing/paypal_service.py`); si no hay credenciales de PayPal en `secrets.toml`, cae a un flip de plan sin cobro real como fallback de demo. Ver [`HANDOFF.md`](HANDOFF.md) para pasar de sandbox a cobro real.
+  > 💡 El botón "Actualizar a Premium" dispara un checkout real de PayPal Subscriptions cuando está configurado (`billing/paypal_service.py`); si no hay credenciales de PayPal en `secrets.toml`, cae a un flip de plan sin cobro real como fallback de demo. Para pasar a cobro real: crear una app en modo Live en developer.paypal.com, correr `scripts/setup_paypal_plan.py` con esas credenciales, y completar `[paypal]` con `mode = "live"` en `secrets.toml`.
 
 ## Stack técnico
 
@@ -36,9 +36,8 @@ Incluye registro/login de usuarios y un sistema de planes **Free / Premium** con
 ## Estructura del proyecto
 
 ```
-├── auth/              # Registro, login, planes de usuario y reset de contraseña
+├── auth/              # Registro, login, planes de usuario y reset de contraseña (llave semilla)
 ├── billing/           # Integración de cobro real (PayPal Subscriptions)
-├── notifications/     # Envío de emails transaccionales (SendGrid)
 ├── api/               # API FastAPI (POST /run-etl)
 ├── assistant/         # Enrutador de comandos del asistente del dashboard
 ├── core/              # Orquestador del pipeline, filtros, reglas guardadas, logging
@@ -101,4 +100,5 @@ python jobs/scheduler.py
 ## Notas
 
 - Los motores de extracción usan **datos simulados** (no hacen scraping/llamadas reales) — están pensados como base para conectar fuentes reales más adelante.
-- La lógica de límites y features por plan es real, y el cobro de Premium vía PayPal también lo es (probado end-to-end en sandbox) — falta pasar a modo `live` con tus propias credenciales para cobrar de verdad. Ver [`HANDOFF.md`](HANDOFF.md) para el checklist completo de qué falta configurar antes de operar en producción o vender el proyecto.
+- La lógica de límites y features por plan es real, y el cobro de Premium vía PayPal también lo es (probado end-to-end en sandbox) — falta pasar a modo `live` para cobrar de verdad.
+- Base de datos SQLite: es efímera en el plan gratuito de Streamlit Community Cloud (se pierde si el contenedor se reinicia). Para producción real, migrar a Postgres (ej. Supabase/Neon) cambiando `SQLITE_URL` en `config.py`.

@@ -3,7 +3,7 @@ import streamlit as st
 from auth.guard import require_login, current_plan
 from auth.service import set_plan, get_subscription_id, PLAN_LIMITS
 from billing import paypal_service
-from views._style import render_header
+from views._style import render_header, inject_marketing_style
 
 
 def _clear_pending_checkout():
@@ -49,6 +49,7 @@ user_email = st.session_state["user_email"]
 plan = current_plan()
 
 render_header("Your Plan", icon="⭐")
+inject_marketing_style()
 st.info(f"Current plan: **{plan['label']}**")
 
 st.markdown("---")

@@ -21,4 +21,4 @@ pages = [
     st.Page("views/plans.py", title="Plans", icon="⭐", url_path="plans"),
 ]
 
-st.navigation(pages).run()
+st.navigation(pages, position="top").run()
