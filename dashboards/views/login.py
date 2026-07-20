@@ -23,6 +23,8 @@ with st.form("login_form"):
         else:
             st.error(message)
 
+st.page_link("views/forgot_password.py", label="Forgot your password?", icon="🔓")
+
 st.markdown("---")
 st.caption("Don't have an account yet?")
 st.page_link("views/register.py", label="Sign up for free", icon="📝")
