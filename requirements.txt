@@ -8,6 +8,9 @@ uvicorn>=0.30.0
 pydantic>=2.0.0
 python-multipart
 
+# --- AUTH & SUSCRIPCIONES (maqueta, sin pagos reales) ---
+bcrypt
+
 # --- DATA PROCESSING ---
 # Pandas 2.x es el estándar de estabilidad para 2026
 pandas>=2.1.0,<3.0.0
