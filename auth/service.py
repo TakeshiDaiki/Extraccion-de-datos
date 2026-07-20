@@ -6,7 +6,7 @@ from auth.db import engine, init_users_table
 
 EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
-# --- DEFINICIÓN DE PLANES (maqueta, no hay cobro real) ---
+# --- PLAN DEFINITIONS (mock, no real billing yet) ---
 PLAN_LIMITS = {
     "free": {
         "label": "Free",
@@ -24,13 +24,13 @@ PLAN_LIMITS = {
 
 
 def register_user(email: str, password: str) -> tuple[bool, str]:
-    """Crea una cuenta nueva en plan Free. Devuelve (ok, mensaje)."""
+    """Creates a new account on the Free plan. Returns (ok, message)."""
     email = email.strip().lower()
 
     if not EMAIL_PATTERN.match(email):
-        return False, "El email no tiene un formato válido."
+        return False, "That email address doesn't look valid."
     if len(password) < 6:
-        return False, "La contraseña debe tener al menos 6 caracteres."
+        return False, "Password must be at least 6 characters long."
 
     init_users_table()
 
@@ -41,18 +41,18 @@ def register_user(email: str, password: str) -> tuple[bool, str]:
             text("SELECT 1 FROM users WHERE email = :email"), {"email": email}
         ).fetchone()
         if exists:
-            return False, "Ya existe una cuenta registrada con ese email."
+            return False, "An account with that email already exists."
 
         conn.execute(
             text("INSERT INTO users (email, password_hash, plan) VALUES (:email, :hash, 'free')"),
             {"email": email, "hash": password_hash},
         )
 
-    return True, "Cuenta creada con éxito. Ya podés iniciar sesión."
+    return True, "Account created successfully. You can now log in."
 
 
 def authenticate(email: str, password: str) -> tuple[bool, str]:
-    """Verifica credenciales. Devuelve (ok, mensaje)."""
+    """Verifies credentials. Returns (ok, message)."""
     email = email.strip().lower()
     init_users_table()
 
@@ -62,12 +62,12 @@ def authenticate(email: str, password: str) -> tuple[bool, str]:
         ).fetchone()
 
     if not row:
-        return False, "No existe una cuenta con ese email."
+        return False, "No account exists with that email."
 
     if not bcrypt.checkpw(password.encode("utf-8"), row[0].encode("utf-8")):
-        return False, "Contraseña incorrecta."
+        return False, "Incorrect password."
 
-    return True, "Login correcto."
+    return True, "Logged in successfully."
 
 
 def get_plan(email: str) -> str:
@@ -83,10 +83,10 @@ def get_plan(email: str) -> str:
 
 
 def set_plan(email: str, plan: str):
-    """Cambia el plan del usuario. Simulación de upgrade/downgrade: no hay
-    ningún procesador de pagos conectado, es solo un flag en la base de datos."""
+    """Changes the user's plan. This simulates an upgrade/downgrade: no real
+    payment processor is connected yet, it's just a flag in the database."""
     if plan not in PLAN_LIMITS:
-        raise ValueError(f"Plan desconocido: {plan}")
+        raise ValueError(f"Unknown plan: {plan}")
 
     email = email.strip().lower()
     init_users_table()

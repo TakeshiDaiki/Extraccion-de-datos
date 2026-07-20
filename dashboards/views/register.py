@@ -1,31 +1,32 @@
 import streamlit as st
 
 from auth.service import register_user
+from views._style import render_header
 
-st.markdown("## 📝 Crear cuenta")
-st.caption("Empezás automáticamente en el plan Free — podés pasarte a Premium cuando quieras.")
+render_header("Create Account", icon="📝")
+st.caption("You'll start on the Free plan automatically — upgrade to Premium anytime.")
 
 if "user_email" in st.session_state:
-    st.info(f"Ya iniciaste sesión como **{st.session_state['user_email']}**.")
-    st.page_link("views/dashboard.py", label="Ir al Dashboard", icon="📊")
+    st.info(f"You're already logged in as **{st.session_state['user_email']}**.")
+    st.page_link("views/dashboard.py", label="Go to Dashboard", icon="📊")
     st.stop()
 
 with st.form("register_form"):
     email = st.text_input("Email")
-    password = st.text_input("Contraseña", type="password")
-    password2 = st.text_input("Repetir contraseña", type="password")
+    password = st.text_input("Password", type="password")
+    password2 = st.text_input("Confirm password", type="password")
 
-    if st.form_submit_button("Crear cuenta", use_container_width=True):
+    if st.form_submit_button("Create Account", use_container_width=True):
         if password != password2:
-            st.error("Las contraseñas no coinciden.")
+            st.error("Passwords don't match.")
         else:
             ok, message = register_user(email, password)
             if ok:
                 st.success(message)
-                st.page_link("views/login.py", label="Iniciar Sesión →", icon="🔑")
+                st.page_link("views/login.py", label="Log In →", icon="🔑")
             else:
                 st.error(message)
 
 st.markdown("---")
-st.caption("¿Ya tenés cuenta?")
-st.page_link("views/login.py", label="Iniciar sesión", icon="🔑")
+st.caption("Already have an account?")
+st.page_link("views/login.py", label="Log in", icon="🔑")
