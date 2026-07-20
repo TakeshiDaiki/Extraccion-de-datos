@@ -82,9 +82,10 @@ def get_plan(email: str) -> str:
     return row[0] if row else "free"
 
 
-def set_plan(email: str, plan: str):
-    """Changes the user's plan. This simulates an upgrade/downgrade: no real
-    payment processor is connected yet, it's just a flag in the database."""
+def set_plan(email: str, plan: str, subscription_id: str | None = None):
+    """Changes the user's plan. When upgrading to Premium via a real PayPal
+    subscription, pass the resulting subscription_id so it can be canceled
+    later on downgrade. Downgrading to Free always clears it."""
     if plan not in PLAN_LIMITS:
         raise ValueError(f"Unknown plan: {plan}")
 
@@ -92,7 +93,29 @@ def set_plan(email: str, plan: str):
     init_users_table()
 
     with engine.begin() as conn:
-        conn.execute(
-            text("UPDATE users SET plan = :plan WHERE email = :email"),
-            {"plan": plan, "email": email},
-        )
+        if plan == "free":
+            conn.execute(
+                text("UPDATE users SET plan = :plan, paypal_subscription_id = NULL WHERE email = :email"),
+                {"plan": plan, "email": email},
+            )
+        else:
+            conn.execute(
+                text(
+                    "UPDATE users SET plan = :plan, "
+                    "paypal_subscription_id = COALESCE(:sub_id, paypal_subscription_id) "
+                    "WHERE email = :email"
+                ),
+                {"plan": plan, "email": email, "sub_id": subscription_id},
+            )
+
+
+def get_subscription_id(email: str) -> str | None:
+    email = email.strip().lower()
+    init_users_table()
+
+    with engine.connect() as conn:
+        row = conn.execute(
+            text("SELECT paypal_subscription_id FROM users WHERE email = :email"), {"email": email}
+        ).fetchone()
+
+    return row[0] if row and row[0] else None

@@ -8,7 +8,7 @@ uvicorn>=0.30.0
 pydantic>=2.0.0
 python-multipart
 
-# --- AUTH & SUSCRIPCIONES (maqueta, sin pagos reales) ---
+# --- AUTH & SUSCRIPCIONES ---
 bcrypt
 
 # --- DATA PROCESSING ---

@@ -15,6 +15,10 @@ def init_users_table():
                 email TEXT UNIQUE NOT NULL,
                 password_hash TEXT NOT NULL,
                 plan TEXT NOT NULL DEFAULT 'free',
+                paypal_subscription_id TEXT,
                 created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
             )
         """))
+        existing_cols = {row[1] for row in conn.execute(text("PRAGMA table_info(users)"))}
+        if "paypal_subscription_id" not in existing_cols:
+            conn.execute(text("ALTER TABLE users ADD COLUMN paypal_subscription_id TEXT"))
