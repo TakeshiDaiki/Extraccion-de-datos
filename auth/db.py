@@ -24,3 +24,18 @@ def init_users_table():
             conn.execute(text("ALTER TABLE users ADD COLUMN paypal_subscription_id TEXT"))
         if "recovery_key_hash" not in existing_cols:
             conn.execute(text("ALTER TABLE users ADD COLUMN recovery_key_hash TEXT"))
+
+
+def init_remember_tokens_table():
+    """"Remember me" tokens: a random high-entropy secret (not the password)
+    handed to the browser as a cookie, hashed with SHA-256 (not bcrypt —
+    the token already has 256 bits of entropy, so a fast indexable hash is
+    fine here, unlike passwords/recovery keys which need slow hashing)."""
+    with engine.begin() as conn:
+        conn.execute(text("""
+            CREATE TABLE IF NOT EXISTS remember_tokens (
+                token_hash TEXT PRIMARY KEY,
+                email TEXT NOT NULL,
+                expires_at TEXT NOT NULL
+            )
+        """))

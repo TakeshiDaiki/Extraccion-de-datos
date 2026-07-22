@@ -1,10 +1,12 @@
+import hashlib
 import re
 import secrets
+from datetime import datetime, timedelta
 
 import bcrypt
 from sqlalchemy import text
 
-from auth.db import engine, init_users_table
+from auth.db import engine, init_users_table, init_remember_tokens_table
 
 EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 RECOVERY_KEY_ALPHABET = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"  # no 0/O/1/I/L, avoids ambiguous chars
@@ -174,3 +176,55 @@ def reset_password_with_recovery_key(email: str, recovery_key: str, new_password
         )
 
     return True, "Password updated. You can now log in with your new password."
+
+
+def _hash_token(token: str) -> str:
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
+def create_remember_token(email: str, days: int) -> str:
+    """Issues a new "remember me" token for a "Remember me"-checked login and
+    stores only its hash, alongside its expiry. Returns the raw token — the
+    caller is responsible for handing it to the browser as a cookie."""
+    email = email.strip().lower()
+    init_remember_tokens_table()
+
+    token = secrets.token_urlsafe(32)
+    expires_at = (datetime.utcnow() + timedelta(days=days)).strftime("%Y-%m-%d %H:%M:%S")
+
+    with engine.begin() as conn:
+        conn.execute(
+            text("INSERT INTO remember_tokens (token_hash, email, expires_at) VALUES (:hash, :email, :expires_at)"),
+            {"hash": _hash_token(token), "email": email, "expires_at": expires_at},
+        )
+
+    return token
+
+
+def verify_remember_token(token: str) -> str | None:
+    """Returns the associated email if the token is valid and unexpired,
+    else None."""
+    if not token:
+        return None
+    init_remember_tokens_table()
+
+    with engine.connect() as conn:
+        row = conn.execute(
+            text(
+                "SELECT email FROM remember_tokens "
+                "WHERE token_hash = :hash AND expires_at > CURRENT_TIMESTAMP"
+            ),
+            {"hash": _hash_token(token)},
+        ).fetchone()
+
+    return row[0] if row else None
+
+
+def revoke_remember_token(token: str) -> None:
+    """Invalidates a "remember me" token, e.g. on logout."""
+    if not token:
+        return
+    init_remember_tokens_table()
+
+    with engine.begin() as conn:
+        conn.execute(text("DELETE FROM remember_tokens WHERE token_hash = :hash"), {"hash": _hash_token(token)})

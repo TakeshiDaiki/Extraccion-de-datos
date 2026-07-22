@@ -25,6 +25,10 @@ def is_configured() -> bool:
     return bool(_secret("client_id")) and bool(_secret("client_secret")) and bool(_secret("plan_id"))
 
 
+def is_live() -> bool:
+    return _secret("mode", "sandbox") == "live"
+
+
 def _base_url() -> str:
     return LIVE_BASE_URL if _secret("mode", "sandbox") == "live" else SANDBOX_BASE_URL
 

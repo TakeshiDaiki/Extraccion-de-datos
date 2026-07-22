@@ -1,6 +1,7 @@
 import streamlit as st
 
 from auth.service import get_plan, PLAN_LIMITS
+from auth.remember_me import forget_login
 
 
 def require_login():
@@ -21,5 +22,6 @@ def current_plan() -> dict:
 
 def logout_button():
     if st.sidebar.button("🚪 Log out"):
+        forget_login()
         st.session_state.pop("user_email", None)
         st.rerun()

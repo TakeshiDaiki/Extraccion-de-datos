@@ -10,7 +10,10 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 
+from auth.remember_me import restore_session
+
 st.set_page_config(page_title="Ingestly", layout="wide", page_icon="🤖")
+restore_session()
 
 pages = [
     st.Page("views/landing.py", title="Home", default=True),

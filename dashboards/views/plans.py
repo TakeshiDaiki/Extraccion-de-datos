@@ -109,7 +109,12 @@ with col_premium:
 
 st.markdown("---")
 st.markdown('<div class="section-title">Billing — how this works</div>', unsafe_allow_html=True)
-if paypal_service.is_configured():
+if paypal_service.is_configured() and paypal_service.is_live():
+    st.success(
+        "✅ **PayPal is connected (live mode).** Upgrading opens a real PayPal "
+        "subscription approval flow — approving it charges your PayPal account **$19/month for real**."
+    )
+elif paypal_service.is_configured():
     st.success(
         "✅ **PayPal is connected (sandbox mode).** Upgrading opens a real PayPal "
         "subscription approval flow — log in with a "

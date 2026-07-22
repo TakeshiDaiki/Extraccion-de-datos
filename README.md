@@ -102,3 +102,7 @@ python jobs/scheduler.py
 - Los motores de extracción usan **datos simulados** (no hacen scraping/llamadas reales) — están pensados como base para conectar fuentes reales más adelante.
 - La lógica de límites y features por plan es real, y el cobro de Premium vía PayPal también lo es (probado end-to-end en sandbox, y ya en modo `live` para cobros reales).
 - Base de datos SQLite: es efímera en el plan gratuito de Streamlit Community Cloud (se pierde si el contenedor se reinicia). Para producción real, migrar a Postgres (ej. Supabase/Neon) cambiando `SQLITE_URL` en `config.py`.
+
+## Copyright
+
+© 2026 TakeshiDaiki. Todos los derechos reservados. Este repositorio es público solo para fines de portfolio/demostración — ver [LICENSE](LICENSE) antes de reutilizar cualquier parte del código.
