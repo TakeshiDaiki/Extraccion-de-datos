@@ -1,6 +1,6 @@
-# Proyecto Master Data Explorer Pro — Notas
+# Proyecto Ingestly (ex "Master Data Explorer Pro") — Notas
 
-**Nombre para retomar: "Master Data Explorer Pro"** (decí ese nombre o "el SaaS de extracción de datos" para que retome el contexto mañana).
+**Nombre para retomar: "Ingestly"** (o "el SaaS de extracción de datos" para que retome el contexto). Renombrado desde "Master Data Explorer Pro" el 2026-07-22 — todas las menciones viejas en este archivo son historial, no hace falta reescribirlas.
 
 - Repo: https://github.com/TakeshiDaiki/Extraccion-de-datos (público)
 - Carpeta local: `C:\Users\joses\Documents\Extraccion-de-datos`

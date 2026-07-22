@@ -10,7 +10,7 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if REPO_ROOT not in sys.path:
     sys.path.insert(0, REPO_ROOT)
 
-st.set_page_config(page_title="Master Data Explorer Pro", layout="wide", page_icon="🤖")
+st.set_page_config(page_title="Ingestly", layout="wide", page_icon="🤖")
 
 pages = [
     st.Page("views/landing.py", title="Home", default=True),

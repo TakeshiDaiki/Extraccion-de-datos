@@ -1,6 +1,6 @@
 import streamlit as st
 
-BRAND_NAME = "Master Data Explorer Pro"
+BRAND_NAME = "Ingestly"
 
 # Warm editorial palette (cream + forest green), inspired by studio/agency
 # sites rather than typical dark "tech SaaS" dashboards. Used app-wide via

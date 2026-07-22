@@ -31,11 +31,11 @@ else:
 st.markdown("---")
 
 # --- WHAT IS IT ---
-st.markdown('<div class="section-title">What is Master Data Explorer Pro?</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-title">What is Ingestly?</div>', unsafe_allow_html=True)
 st.write(
     "Most data work isn't the analysis itself — it's the hours lost wrangling spreadsheets, "
-    "scraped pages, inboxes, and PDFs into something you can actually chart. Master Data "
-    "Explorer Pro handles that grind for you: point it at a source, let the extraction engine "
+    "scraped pages, inboxes, and PDFs into something you can actually chart. Ingestly "
+    "handles that grind for you: point it at a source, let the extraction engine "
     "pull the data, and use the built-in cleaning suite to get it analysis-ready in minutes, "
     "not hours."
 )

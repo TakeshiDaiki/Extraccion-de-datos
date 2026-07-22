@@ -69,7 +69,7 @@ def create_subscription(user_email: str) -> tuple[str, str]:
             "plan_id": _secret("plan_id"),
             "subscriber": {"email_address": user_email},
             "application_context": {
-                "brand_name": "Master Data Explorer Pro",
+                "brand_name": "Ingestly",
                 # paypal_return=1 is our own marker, not something PayPal adds — we
                 # can't rely on PayPal appending a recognizable param on approval,
                 # so we control the trigger for "user came back" ourselves. The

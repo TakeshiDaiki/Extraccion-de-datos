@@ -1,4 +1,4 @@
-# 📑 Master Data Explorer Pro
+# 📑 Ingestly
 
 Plataforma BI (Business Intelligence) con asistente de IA, pensada para gente que se dedica al análisis de datos: extrae información desde 6 fuentes distintas, la limpia/transforma con un conjunto de herramientas profesionales, y la explora desde un dashboard interactivo.
 
@@ -100,5 +100,5 @@ python jobs/scheduler.py
 ## Notas
 
 - Los motores de extracción usan **datos simulados** (no hacen scraping/llamadas reales) — están pensados como base para conectar fuentes reales más adelante.
-- La lógica de límites y features por plan es real, y el cobro de Premium vía PayPal también lo es (probado end-to-end en sandbox) — falta pasar a modo `live` para cobrar de verdad.
+- La lógica de límites y features por plan es real, y el cobro de Premium vía PayPal también lo es (probado end-to-end en sandbox, y ya en modo `live` para cobros reales).
 - Base de datos SQLite: es efímera en el plan gratuito de Streamlit Community Cloud (se pierde si el contenedor se reinicia). Para producción real, migrar a Postgres (ej. Supabase/Neon) cambiando `SQLITE_URL` en `config.py`.
